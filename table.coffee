@@ -55,7 +55,6 @@ window.onload = () ->
         null
 
     tableInsert.onclick = ()->
-        row = niceTable.insertRow(niceTable.rows.length);
         if name.value == ""
             name.classList.add("buzz-out")
             setTimeout((() -> name.classList.remove("buzz-out")), 750)
@@ -66,6 +65,7 @@ window.onload = () ->
             weight.classList.add("buzz-out")
             setTimeout((() -> weight.classList.remove("buzz-out")), 750)
         else
+            row = niceTable.insertRow(niceTable.rows.length);
             row.insertCell(0).innerHTML = name.value
             row.insertCell(1).innerHTML = height.value
             row.insertCell(2).innerHTML = weight.value
