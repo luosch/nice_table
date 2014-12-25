@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nice table</title>
+    <link rel="stylesheet" href="table.css">
+    <script type="text/javascript" src="table.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="panel">
+            <h1>nice table</h1>
+            <table id="niceTable">
+                <thead>
+                    <tr>
+                        <td id="sortByName">name</td>
+                        <td id="sortByHeight">height(cm)</td>
+                        <td id="sortByWeight">weight(kg)</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>xiaoming</td>
+                        <td>172</td>
+                        <td>43</td>
+                    </tr>
+                    <tr>
+                        <td>huihui</td>
+                        <td>162</td>
+                        <td>50</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel">
+            <h1>insert</h1>
+            <input type="text" id="name" placeholder="name">
+            <input type="text" id="height" placeholder="height(cm)">
+            <input type="text" id="weight" placeholder="weight(kg)">
+            <button id="tableInsert">add</button>
+        </div>
+        <div class="panel">
+            <h1>delete</h1>
+            <select id="selectRow"></select>
+            <button id="tableDelete">delete</button>
+        </div>
+    </div>
+</body>
+</html>
