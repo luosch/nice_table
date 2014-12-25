@@ -1,4 +1,4 @@
-a simple table with some functions
+a simple table with three functions
 
 1. insert
 2. delete

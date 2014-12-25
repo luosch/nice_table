@@ -6,6 +6,9 @@ window.onload = () ->
     sortByName = document.getElementById("sortByName");
     sortByHeight = document.getElementById("sortByHeight");
     sortByWeight = document.getElementById("sortByWeight");
+    name = document.getElementById("name")
+    height = document.getElementById("height")
+    weight = document.getElementById("weight")
 
     ### initialize the select options ###
     do initialize = () ->
@@ -41,8 +44,8 @@ window.onload = () ->
         for i in [1..len]
             if i + 1 <= len
                 for j in [i + 1..len]
-                    cmp1 = niceTable.rows[i].cells[key].innerHTML
-                    cmp2 = niceTable.rows[j].cells[key].innerHTML
+                    cmp1 = parseInt niceTable.rows[i].cells[key].innerHTML
+                    cmp2 = parseInt niceTable.rows[j].cells[key].innerHTML
                     if (order == "asc")
                         if (cmp1 > cmp2)
                             exchange(i, j)
@@ -53,29 +56,37 @@ window.onload = () ->
 
     tableInsert.onclick = ()->
         row = niceTable.insertRow(niceTable.rows.length);
-        row.insertCell(0).innerHTML = document.getElementById("name").value
-        row.insertCell(1).innerHTML = document.getElementById("height").value
-        row.insertCell(2).innerHTML = document.getElementById("weight").value
+        if name.value == ""
+            name.classList.add("buzz-out")
+            setTimeout((() -> name.classList.remove("buzz-out")), 750)
+        else if height.value == ""
+            height.classList.add("buzz-out")
+            setTimeout((() -> height.classList.remove("buzz-out")), 750)
+        else if weight.value == ""
+            weight.classList.add("buzz-out")
+            setTimeout((() -> weight.classList.remove("buzz-out")), 750)
+        else
+            row.insertCell(0).innerHTML = name.value
+            row.insertCell(1).innerHTML = height.value
+            row.insertCell(2).innerHTML = weight.value
+            name.value = height.value = weight.value = ""
         do initialize
 
     tableDelete.onclick = () ->
         niceTable.deleteRow parseInt selectRow.value
         do initialize
-    sortByName.onclick = () ->
-        if this.innerHTML == "name↓"
-            sort(0, "asc")
-            this.innerHTML = "name↑"
-        else
-            sort(0, "desc")
-            this.innerHTML = "name↓"
+
     sortByHeight.onclick = () ->
+        sortByWeight.innerHTML = "weight(cm)"
         if this.innerHTML == "height(cm)↓"
             sort(1, "asc")
             this.innerHTML = "height(cm)↑"
         else
             sort(1, "desc")
             this.innerHTML = "height(cm)↓"
+
     sortByWeight.onclick = () ->
+        sortByHeight.innerHTML = "height(cm)"
         if this.innerHTML == "weight(cm)↓"
             sort(2, "asc")
             this.innerHTML = "weight(cm)↑"
