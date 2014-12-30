@@ -3,7 +3,7 @@
   window.onload = function() {
     var exchange, height, initialize, name, niceTable, selectRow, sort, sortByHeight, sortByName, sortByWeight, tableDelete, tableInsert, weight;
     tableInsert = document.getElementById("tableInsert");
-    niceTable = document.getElementById("niceTable");
+    niceTable = document.getElementById("niceTable").tBodies[0];
     tableDelete = document.getElementById("tableDelete");
     selectRow = document.getElementById("selectRow");
     sortByName = document.getElementById("sortByName");
@@ -17,15 +17,13 @@
     (initialize = function() {
       var i, option, _i, _ref;
       selectRow.innerHTML = "";
-      for (i = _i = 1, _ref = niceTable.rows.length - 1; 1 <= _ref ? _i <= _ref : _i >= _ref; i = 1 <= _ref ? ++_i : --_i) {
-        if (i !== 0) {
-          option = document.createElement("option");
-          option.value = i;
-          option.innerHTML = "row" + i;
-          selectRow.appendChild(option);
-        }
+      for (i = _i = 0, _ref = niceTable.rows.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+        option = document.createElement("option");
+        option.value = i;
+        option.innerHTML = "row" + i;
+        selectRow.appendChild(option);
       }
-      if (niceTable.rows.length === 1) {
+      if (niceTable.rows.length === 0) {
         selectRow.innerHTML = "";
       }
       return null;
@@ -54,10 +52,10 @@
     /* sort */
     sort = function(key, order) {
       var cmp1, cmp2, i, j, len, _i, _j, _ref;
-      len = niceTable.rows.length - 1;
-      for (i = _i = 1; 1 <= len ? _i <= len : _i >= len; i = 1 <= len ? ++_i : --_i) {
-        if (i + 1 <= len) {
-          for (j = _j = _ref = i + 1; _ref <= len ? _j <= len : _j >= len; j = _ref <= len ? ++_j : --_j) {
+      len = niceTable.rows.length;
+      for (i = _i = 0; 0 <= len ? _i < len : _i > len; i = 0 <= len ? ++_i : --_i) {
+        if (i + 1 < len) {
+          for (j = _j = _ref = i + 1; _ref <= len ? _j < len : _j > len; j = _ref <= len ? ++_j : --_j) {
             cmp1 = parseInt(niceTable.rows[i].cells[key].innerHTML);
             cmp2 = parseInt(niceTable.rows[j].cells[key].innerHTML);
             if (order === "asc") {
@@ -78,16 +76,19 @@
       var row;
       if (name.value === "") {
         name.classList.add("buzz-out");
+        name.focus();
         setTimeout((function() {
           return name.classList.remove("buzz-out");
         }), 750);
       } else if (height.value === "") {
         height.classList.add("buzz-out");
+        height.focus();
         setTimeout((function() {
           return height.classList.remove("buzz-out");
         }), 750);
       } else if (weight.value === "") {
         weight.classList.add("buzz-out");
+        weight.focus();
         setTimeout((function() {
           return weight.classList.remove("buzz-out");
         }), 750);

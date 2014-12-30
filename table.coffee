@@ -1,6 +1,6 @@
 window.onload = () ->
     tableInsert = document.getElementById("tableInsert");
-    niceTable = document.getElementById("niceTable");
+    niceTable = document.getElementById("niceTable").tBodies[0];
     tableDelete = document.getElementById("tableDelete");
     selectRow = document.getElementById("selectRow");
     sortByName = document.getElementById("sortByName");
@@ -13,13 +13,12 @@ window.onload = () ->
     ### initialize the select options ###
     do initialize = () ->
         selectRow.innerHTML = ""
-        for i in [1..niceTable.rows.length - 1]
-            if i != 0
-                option = document.createElement("option")
-                option.value = i
-                option.innerHTML = "row#{i}"
-                selectRow.appendChild(option)
-        if niceTable.rows.length == 1 then selectRow.innerHTML = ""
+        for i in [0...niceTable.rows.length]
+            option = document.createElement("option")
+            option.value = i
+            option.innerHTML = "row#{i}"
+            selectRow.appendChild(option)
+        if niceTable.rows.length == 0 then selectRow.innerHTML = ""
         null
 
     ### exchange two rows in table ###
@@ -40,10 +39,10 @@ window.onload = () ->
 
     ### sort ###
     sort = (key, order) ->
-        len = niceTable.rows.length - 1
-        for i in [1..len]
-            if i + 1 <= len
-                for j in [i + 1..len]
+        len = niceTable.rows.length
+        for i in [0...len]
+            if i + 1 < len
+                for j in [i + 1...len]
                     cmp1 = parseInt niceTable.rows[i].cells[key].innerHTML
                     cmp2 = parseInt niceTable.rows[j].cells[key].innerHTML
                     if (order == "asc")
@@ -57,12 +56,15 @@ window.onload = () ->
     tableInsert.onclick = ()->
         if name.value == ""
             name.classList.add("buzz-out")
+            name.focus()
             setTimeout((() -> name.classList.remove("buzz-out")), 750)
         else if height.value == ""
             height.classList.add("buzz-out")
+            height.focus()
             setTimeout((() -> height.classList.remove("buzz-out")), 750)
         else if weight.value == ""
             weight.classList.add("buzz-out")
+            weight.focus()
             setTimeout((() -> weight.classList.remove("buzz-out")), 750)
         else
             row = niceTable.insertRow(niceTable.rows.length);
